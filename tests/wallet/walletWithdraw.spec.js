@@ -1,8 +1,8 @@
 'use strict';
 
 const { test, expect } = require('@playwright/test');
-const { loginUser } = require('../helpers/loginUser');
-const { depositUser } = require('../helpers/depositUser');
+const { loginUser } = require('../../helpers/loginUser');
+const { withdrawUser } = require('../../helpers/withdrawUser');
 
 // ----------------------------------------------------------
 // GROUP: Alur Login
@@ -20,7 +20,7 @@ test.describe('Verifikasi Alur Deposit', () => {
 
       await page.waitForTimeout(2000); // Tunggu 2 detik untuk memastikan halaman sudah stabil
 
-      await depositUser(page);
+      await withdrawUser(page);
 
    });
 

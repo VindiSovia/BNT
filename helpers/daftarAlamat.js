@@ -23,8 +23,12 @@ const URL = {
 };
 
 const SELECTOR = {
-  /** Tombol "Masuk" di halaman utama (navbar/hero) */
-  BTN_REDIRECT_DEPOSIT: '[data-testid="dashboard-button-btn-dashboard-3"]',
+  BTN_NAV_AKUN: '[id="btn-nav-akun"]',
+  BTN_DROPDOWN_PROFIL: '[id="dropdown-header-profil"]',
+  BTN_DROPDOWN_DAFTAR_ALAMAT: '[id="dropdown-item-daftar-alamat"]',
+  BTN_PLUS: '[data-testid="index-alamat-button-btn-index-alamat-2"]',
+  BTN_ALAMAT_KTP: '[data-testid="index-alamat-button-btn-index-alamat-9"]',
+  BTN_ALAMAT_PENGIRIMAN: '[data-testid="index-alamat-button-btn-index-alamat-10"]',
 
   /** Input nominal deposit pada form deposit */
   INPUT_NOMINAL: '[data-testid="component-deposit-input-nominal"]',
@@ -86,13 +90,13 @@ function validateEnvVars() {
  *
  * @example
  * // Di dalam test:
- * const { loginUser } = require('../helpers/loginUser');
+ * const { daftarAlamat } = require('../helpers/daftarAlamat');
  * test('contoh test setelah login', async ({ page }) => {
- *   await loginUser(page);
+ *   await daftarAlamat(page);
  *   // Lanjutkan test Anda di sini...
  * });
  */
-async function depositUser(page) {
+async function daftarAlamat(page) {
   // Validasi env vars sebelum mulai
   // validateEnvVars();
 
@@ -104,31 +108,31 @@ async function depositUser(page) {
   await btnRedirectDeposit.waitFor({ state: 'visible' });
   await btnRedirectDeposit.click();
 
-  console.log('[depositUser] Mengklik tombol redirect deposit "Deposit"...');
+  console.log('[daftarAlamat] Mengklik tombol redirect deposit "Deposit"...');
 
   const inputNominal = page.locator(SELECTOR.INPUT_NOMINAL).first();
   await inputNominal.waitFor({ state: 'visible' });
   // await inputNominal.click();
   await inputNominal.fill("100000");
-  console.log('[depositUser] Mengisi nominal deposit"...');
+  console.log('[daftarAlamat] Mengisi nominal deposit"...');
 
   const btnSubmitDeposit = page.locator(SELECTOR.BTN_SUBMIT_DEPOSIT).first();
   // Pastikan tombol terlihat sebelum diklik
   await btnSubmitDeposit.waitFor({ state: 'visible' });
   await btnSubmitDeposit.click();
-  console.log('[depositUser] Klik submit deposit dan membuka modal metode pembayaran"...');
+  console.log('[daftarAlamat] Klik submit deposit dan membuka modal metode pembayaran"...');
 
   const btnTransferBank = page.locator(SELECTOR.BTN_TRANSFER_BANK).first();
   // Pastikan tombol terlihat sebelum diklik
   await btnTransferBank.waitFor({ state: 'visible' });
   await btnTransferBank.click();
-  console.log('[depositUser] Klik metode pembayaran "Transfer Bank"...');
+  console.log('[daftarAlamat] Klik metode pembayaran "Transfer Bank"...');
 
   const btnSubmitProsesTransfer = page.locator(SELECTOR.BTN_SUMIT_TRANSFER).first();
   // Pastikan tombol terlihat sebelum diklik
   await btnSubmitProsesTransfer.waitFor({ state: 'visible' });
   await btnSubmitProsesTransfer.click();
-  console.log('[depositUser] Melakukan klik submit proses transfer "Proses Transfer"...');
+  console.log('[daftarAlamat] Melakukan klik submit proses transfer "Proses Transfer"...');
 
   const fileChooserPromise = page.waitForEvent('filechooser');
 
@@ -136,7 +140,7 @@ async function depositUser(page) {
   // Pastikan tombol terlihat sebelum diklik
   await bntUploadBuktiTf.waitFor({ state: 'visible' });
   await bntUploadBuktiTf.click();
-  console.log('[depositUser] Melakukan klik tombol unggah bukti transfer "Unggah Bukti Transfer"...');
+  console.log('[daftarAlamat] Melakukan klik tombol unggah bukti transfer "Unggah Bukti Transfer"...');
 
   const fileChooser = await fileChooserPromise;
   await fileChooser.setFiles('tests/assets/main_page_loaded.png');
@@ -145,13 +149,13 @@ async function depositUser(page) {
   // Pastikan tombol terlihat sebelum diklik
   await btnKirimBuktiTF.waitFor({ state: 'visible' });
   await btnKirimBuktiTF.click();
-  console.log('[depositUser] Melakukan klik tombol kirim bukti transfer "Kirim Bukti Transfer"...');
+  console.log('[daftarAlamat] Melakukan klik tombol kirim bukti transfer "Kirim Bukti Transfer"...');
 
 
   // Pastikan tombol terlihat sebelum diklik
   await btnSubmitDeposit.waitFor({ state: 'visible' });
   await btnSubmitDeposit.click();
-  console.log('[depositUser] Klik submit deposit dan membuka modal metode pembayaran"...');
+  console.log('[daftarAlamat] Klik submit deposit dan membuka modal metode pembayaran"...');
 
   const btnCloseModal = page.locator(SELECTOR.BTN_CLOSE_MODAL).first();
   // Pastikan tombol terlihat sebelum diklik
@@ -162,4 +166,4 @@ async function depositUser(page) {
 // ----------------------------------------------------------
 // Ekspor fungsi agar dapat digunakan di file test lain
 // ----------------------------------------------------------
-module.exports = { depositUser };
+module.exports = { daftarAlamat };

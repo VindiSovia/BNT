@@ -24,28 +24,25 @@ const URL = {
 
 const SELECTOR = {
   /** Tombol "Masuk" di halaman utama (navbar/hero) */
-  BTN_REDIRECT_DEPOSIT: '[data-testid="dashboard-button-btn-dashboard-3"]',
+  BTN_REDIRECT_WITHDRAW: '[data-testid="dashboard-button-btn-dashboard-4"]',
 
-  /** Input nominal deposit pada form deposit */
-  INPUT_NOMINAL: '[data-testid="component-deposit-input-nominal"]',
+  /** Tombol "Masuk" di halaman utama (navbar/hero) */
+  BTN_WITHDRAW: '[data-testid=" -button-btn-dashboard-4"]',
 
-  /** Input nominal deposit pada form deposit */
-  BTN_SUBMIT_DEPOSIT: '[data-testid="component-deposit-button-btn-component-deposit-1"]',
+  /** Input nominal withdraw pada form withdraw */
+  INPUT_NOMINAL: '[data-testid="component-withdraw-input-nominal"]',
 
-  /** Input nominal deposit pada form deposit */
-  BTN_TRANSFER_BANK: '[data-testid="component-deposit-button-btn-component-deposit-4"]',
+  /** Input nominal withdraw pada form withdraw */
+  BTN_SUBMIT_DEPOSIT: '[data-testid="component-withdraw-button-btn-component-withdraw-1"]',
 
-  /** Input nominal deposit pada form deposit */
-  BTN_SUMIT_TRANSFER: '[data-testid="component-deposit-button-btn-component-deposit-6"]',
+  /** Input nominal withdraw pada form withdraw */
+  BTN_TRANSFER_BANK: '[data-testid="component-withdraw-button-btn-component-withdraw-4"]',
 
-  /** Input nominal deposit pada form deposit */
-  BTN_UNGGAH_BUKTI_TF: '[data-testid="component-deposit-button-btn-component-deposit-9"]',
+  /** Input nominal withdraw pada form withdraw */
+  BTN_SUMIT_TRANSFER: '[data-testid="component-withdraw-button-btn-component-withdraw-6"]',
 
-  /** Input nominal deposit pada form deposit */
-  BTN_CLOSE_MODAL: '[data-testid="component-deposit-button-btn-component-deposit-8"]',
-
-  /** Input nominal deposit pada form deposit */
-  BTN_KIRIM_BUKTI_TF: '[data-testid="component-deposit-button-btn-component-deposit-10"]',
+  /** Input nominal withdraw pada form withdraw */
+  BTN_UNGGAH_BUKTI_TF: '[data-testid="component-withdraw-button-btn-component-withdraw-9"]',
 };
 
 // ----------------------------------------------------------
@@ -92,74 +89,52 @@ function validateEnvVars() {
  *   // Lanjutkan test Anda di sini...
  * });
  */
-async function depositUser(page) {
+async function withdrawUser(page) {
   // Validasi env vars sebelum mulai
   // validateEnvVars();
 
   // Tunggu hingga halaman selesai dimuat (network idle)
   await page.waitForLoadState('networkidle');
 
-  const btnRedirectDeposit = page.locator(SELECTOR.BTN_REDIRECT_DEPOSIT).first();
+  const btnRedirectWithdraw = page.locator(SELECTOR.BTN_REDIRECT_WITHDRAW).first();
   // Pastikan tombol terlihat sebelum diklik
-  await btnRedirectDeposit.waitFor({ state: 'visible' });
-  await btnRedirectDeposit.click();
+  await btnRedirectWithdraw.waitFor({ state: 'visible' });
+  await btnRedirectWithdraw.click();
 
-  console.log('[depositUser] Mengklik tombol redirect deposit "Deposit"...');
+  console.log('[withdrawUser] Mengklik tombol redirect withdraw "Withdraw"...');
 
   const inputNominal = page.locator(SELECTOR.INPUT_NOMINAL).first();
   await inputNominal.waitFor({ state: 'visible' });
   // await inputNominal.click();
   await inputNominal.fill("100000");
-  console.log('[depositUser] Mengisi nominal deposit"...');
+  console.log('[withdrawUser] Mengisi nominal withdraw"...');
 
-  const btnSubmitDeposit = page.locator(SELECTOR.BTN_SUBMIT_DEPOSIT).first();
+  const btnSubmitWithdraw = page.locator(SELECTOR.BTN_SUBMIT_DEPOSIT).first();
   // Pastikan tombol terlihat sebelum diklik
-  await btnSubmitDeposit.waitFor({ state: 'visible' });
-  await btnSubmitDeposit.click();
-  console.log('[depositUser] Klik submit deposit dan membuka modal metode pembayaran"...');
+  await btnSubmitWithdraw.waitFor({ state: 'visible' });
+  await btnSubmitWithdraw.click();
+  console.log('[withdrawUser] Klik submit withdraw dan membuka modal metode pembayaran"...');
 
   const btnTransferBank = page.locator(SELECTOR.BTN_TRANSFER_BANK).first();
   // Pastikan tombol terlihat sebelum diklik
   await btnTransferBank.waitFor({ state: 'visible' });
   await btnTransferBank.click();
-  console.log('[depositUser] Klik metode pembayaran "Transfer Bank"...');
+  console.log('[withdrawUser] Klik metode pembayaran "Transfer Bank"...');
 
   const btnSubmitProsesTransfer = page.locator(SELECTOR.BTN_SUMIT_TRANSFER).first();
   // Pastikan tombol terlihat sebelum diklik
   await btnSubmitProsesTransfer.waitFor({ state: 'visible' });
   await btnSubmitProsesTransfer.click();
-  console.log('[depositUser] Melakukan klik submit proses transfer "Proses Transfer"...');
-
-  const fileChooserPromise = page.waitForEvent('filechooser');
+  console.log('[withdrawUser] Melakukan klik submit proses transfer "Proses Transfer"...');
 
   const bntUploadBuktiTf = page.locator(SELECTOR.BTN_UNGGAH_BUKTI_TF).first();
   // Pastikan tombol terlihat sebelum diklik
   await bntUploadBuktiTf.waitFor({ state: 'visible' });
   await bntUploadBuktiTf.click();
-  console.log('[depositUser] Melakukan klik tombol unggah bukti transfer "Unggah Bukti Transfer"...');
-
-  const fileChooser = await fileChooserPromise;
-  await fileChooser.setFiles('tests/assets/main_page_loaded.png');
-
-  const btnKirimBuktiTF = page.locator(SELECTOR.BTN_KIRIM_BUKTI_TF).first();
-  // Pastikan tombol terlihat sebelum diklik
-  await btnKirimBuktiTF.waitFor({ state: 'visible' });
-  await btnKirimBuktiTF.click();
-  console.log('[depositUser] Melakukan klik tombol kirim bukti transfer "Kirim Bukti Transfer"...');
-
-
-  // Pastikan tombol terlihat sebelum diklik
-  await btnSubmitDeposit.waitFor({ state: 'visible' });
-  await btnSubmitDeposit.click();
-  console.log('[depositUser] Klik submit deposit dan membuka modal metode pembayaran"...');
-
-  const btnCloseModal = page.locator(SELECTOR.BTN_CLOSE_MODAL).first();
-  // Pastikan tombol terlihat sebelum diklik
-  await btnCloseModal.waitFor({ state: 'visible' });
-  await btnCloseModal.click();
+  console.log('[withdrawUser] Melakukan klik tombol unggah bukti transfer "Unggah Bukti Transfer"...');
 }
 
 // ----------------------------------------------------------
 // Ekspor fungsi agar dapat digunakan di file test lain
 // ----------------------------------------------------------
-module.exports = { depositUser };
+module.exports = { withdrawUser };
